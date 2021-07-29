@@ -1,0 +1,282 @@
+local amount = fovamount
+
+game:GetService'Workspace'.Camera.FieldOfView = 90
+getgenv().Players = game:GetService'Players'
+getgenv().LP = Players.LocalPlayer or Players.PlayerAdded:Wait()
+
+coroutine.resume(coroutine.create(function()
+    LP.PlayerGui.Chat.Frame.ChatChannelParentFrame.Visible = true
+    LP.PlayerGui.Chat.Frame.ChatBarParentFrame.Position = LP.PlayerGui.Chat.Frame.ChatChannelParentFrame.Position + UDim2.new(UDim.new(),LP.PlayerGui.Chat.Frame.ChatChannelParentFrame.Size.Y)
+end))
+game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(KeyPressed)
+    if KeyPressed == "r" then
+    game.Players.LocalPlayer.Character.Humanoid.Health = 0
+end
+end)
+
+rpm = 1
+game:GetService('RunService').RenderStepped:connect(function()
+    --[[for i=1,math.ceil((rpm/60)/60) do]] -- not needed :shrug:
+        game.Lighting.TimeOfDay = "14:00:00" -- makes it day all the time
+    end)
+--[[end)]]
+function notify(NTitle, NText, NIcon, NDurFation)
+    game.StarterGui:SetCore("SendNotification",{
+		Title = NTitle;
+		Text = NText;
+		Icon = NIcon;
+		Duration = NDuration;
+	})
+ end
+notify("Kratos v1", "PinkSky has been applied", "", "3")
+local lighting = game.Lighting
+local sunray = Instance.new("SunRaysEffect", lighting)
+local sky = lighting.Sky
+sky.SkyboxBk = "http://www.roblox.com/asset/?id=271042516"
+sky.SkyboxDn = "http://www.roblox.com/asset/?id=271077243"
+sky.SkyboxFt = "http://www.roblox.com/asset/?id=271042556"
+sky.SkyboxLf = "http://www.roblox.com/asset/?id=271042310"
+sky.SkyboxRt = "http://www.roblox.com/asset/?id=271042467"
+sky.SkyboxUp = "http://www.roblox.com/asset/?id=271077958"
+sky.StarCount = 1334
+sky.SunAngularSize = 21
+sky.MoonAngularSize = 11
+local localp = game:GetService("Players").LocalPlayer
+local RS = game:GetService("RunService")
+function notify(NTitle, NText, NIcon, NDuration)
+    game.StarterGui:SetCore("SendNotification",{
+		Title = NTitle;
+		Text = NText;
+		Icon = NIcon;
+		Duration = NDuration;
+	})
+ end
+  notify("Kratos V1", "NIGGER JUICE!")
+RS.RenderStepped:Connect(function()
+    local function GunSkins(GunTable, Color, Material)
+		for _, v in pairs(GunTable:GetChildren()) do
+			if v:IsA"Tool" and v:FindFirstChild"Fire" then
+				for _, i in pairs(v:GetDescendants()) do 
+					if i:IsA"UnionOperation" or i:IsA"Part" or i:IsA"MeshPart" then 
+						if i:IsA"UnionOperation" then 
+							i.UsePartColor = true
+						end
+						i.Material = Material
+						i.Color = Color
+					end
+				end
+			end
+		end
+	end
+	GunSkins(localp.Backpack, Color3.fromRGB(255,20,147), "ForceField") -- you can change color here.
+end)
+local stationaryrespawn = false
+local needsrespawning = false
+local haspos = false
+local pos = CFrame.new()
+
+local Respawning = Instance.new("ScreenGui")
+local RespawningButton = Instance.new("TextButton")
+
+Respawning.Name = "Respawning"
+Respawning.Parent = game.CoreGui
+
+
+
+RespawningButton.Name = "RespawningButton"
+RespawningButton.Parent = Respawning
+RespawningButton.BackgroundColor3 = Color3.new(0.117647, 0.117647, 0.117647)
+RespawningButton.BackgroundTransparency = 0.30000001192093
+RespawningButton.BorderSizePixel = 0
+RespawningButton.Position = UDim2.new(0.0391057241, 0, 0.826617789, 0)
+RespawningButton.Size = UDim2.new(0, 83, 0, 34)
+RespawningButton.Font = Enum.Font.SourceSans
+RespawningButton.Text = "Not Returning"
+RespawningButton.TextColor3 = Color3.new(1, 1, 1)
+RespawningButton.TextSize = 20
+RespawningButton.TextScaled = true
+RespawningButton.Draggable = true
+
+
+
+
+function StatRespawn(inputObject, gameProcessedEvent)
+    if inputObject.KeyCode == Enum.KeyCode.N and gameProcessedEvent == false then        
+stationaryrespawn = not stationaryrespawn
+    end
+end
+
+
+
+
+
+
+game:GetService("UserInputService").InputBegan:connect(StatRespawn)
+
+
+
+game:GetService('RunService').Stepped:connect(function()
+
+
+if stationaryrespawn == true and game.Players.LocalPlayer.Character.Humanoid.Health == 0 then
+if haspos == false then
+pos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+haspos = true
+end
+
+needsrespawning = true
+end
+
+
+if needsrespawning == true then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+end
+
+
+if stationaryrespawn == true then 
+RespawningButton.Text = "Returning"
+else
+RespawningButton.Text = "Not Returning"
+end
+
+
+end)
+
+game.Players.LocalPlayer.CharacterAdded:connect(function()
+wait(0.6)
+needsrespawning = false
+haspos = false
+end)
+local RunService = game:GetService("RunService")
+
+RunService.RenderStepped:Connect(function()
+    if game.Players.LocalPlayer.Character.Humanoid then
+        --print("humanoid exists")
+        if game.Players.LocalPlayer.Character.Humanoid:findFirstChild("Bullet") then
+            print("bullet exists")
+            if game.Players.LocalPlayer.Character.Humanoid.Bullet:findFirstChild("Trail") then
+                print("trail exists")
+                if game.Players.LocalPlayer.Character.Humanoid:findFirstChild("Bullet").Name == "BulletDone" then
+                    print("bullet done")
+                end
+                if game.Players.LocalPlayer.Character.Humanoid:findFirstChild("Bullet"):findFirstChild("Trail").Lifetime < 5 then
+                    print("success!")
+                    game.Players.LocalPlayer.Character.Humanoid:findFirstChild("Bullet").Trail.Lifetime = 5
+                    game.Players.LocalPlayer.Character.Humanoid:findFirstChild("Bullet").Trail.Transparency = NumberSequence.new(0)
+                    game.Players.LocalPlayer.Character.Humanoid:findFirstChild("Bullet").Trail.Color = ColorSequence.new(Color3.fromRGB(255,192,203),Color3.fromRGB(255,192,203))
+                    game.Players.LocalPlayer.Character.Humanoid:findFirstChild("Bullet").Name = "BulletDone"
+                end
+            end
+        end
+    end
+end)
+local function callback(Text)
+end
+
+local ScreenGui = Instance.new("ScreenGui")
+local ClipsTxt = Instance.new("TextLabel")
+local BulletsTxt = Instance.new("TextLabel")
+ScreenGui.Parent = game.CoreGui
+ClipsTxt.Name = "ClipsTxt"
+ClipsTxt.Parent = ScreenGui
+ClipsTxt.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ClipsTxt.BackgroundTransparency = 1.000
+ClipsTxt.Position = UDim2.new(0, 0, 0.10211359, 0)
+ClipsTxt.Size = UDim2.new(0, 200, 0, 50)
+ClipsTxt.Font = Enum.Font.Gotham
+ClipsTxt.Text = "Clips:"
+ClipsTxt.TextColor3 = Color3.fromRGB(255, 255, 255)
+ClipsTxt.TextSize = 24.000
+ClipsTxt.Visible = false
+
+BulletsTxt.Name = "BulletsTxt"
+BulletsTxt.Parent = ScreenGui
+BulletsTxt.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+BulletsTxt.BackgroundTransparency = 1.000
+BulletsTxt.Position = UDim2.new(0, 0, 0.14211359, 0)
+BulletsTxt.Size = UDim2.new(0, 200, 0, 50)
+BulletsTxt.Font = Enum.Font.Gotham
+BulletsTxt.Text = "Bullets:"
+BulletsTxt.TextColor3 = Color3.fromRGB(255, 255, 255)
+BulletsTxt.TextSize = 24.000
+BulletsTxt.Visible = false
+game.Players.LocalPlayer.PlayerGui.HUD:FindFirstChild("Ammo"):Destroy()
+
+function CustomAmmoUI()
+local gunequipped = false
+for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+	if v:IsA("Tool") then
+        if v ~= nil then	
+v.Equipped:Connect(function()
+if v:FindFirstChild("Clips") and v:FindFirstChild("Ammo") then		
+wait(.1)
+ClipsTxt.Text = "Clips:"
+BulletsTxt.Text = "Bullets:"		
+gunequipped = true	
+BulletsTxt.Visible = true
+ClipsTxt.Visible = true
+repeat	
+BulletsTxt.Text = "Bullets: "..v:FindFirstChild("Ammo").Value..""
+ClipsTxt.Text = "Clips: "..v:FindFirstChild("Clips").Value..""
+game:GetService("RunService").Heartbeat:Wait()	
+until gunequipped == false
+else
+return nil			
+end				
+end)
+v.Unequipped:Connect(function()
+ClipsTxt.Text = "Clips:"
+BulletsTxt.Text = "Bullets:"
+gunequipped = false	
+BulletsTxt.Visible = false
+ClipsTxt.Visible = false
+end)
+end			
+end	
+end	
+end
+CustomAmmoUI()
+game.Players.LocalPlayer.Character.Humanoid.Died:Connect(function()
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+end)
+game.Players.LocalPlayer.CharacterAdded:Connect(function()	
+local hud = game.Players.LocalPlayer.PlayerGui:WaitForChild("HUD")
+hud.Ammo:Destroy()
+wait(1)
+CustomAmmoUI()	
+end)
+
+local localp = game:GetService("Players").LocalPlayer
+local RS = game:GetService("RunService")
+function notify(NTitle, NText, NIcon, NDuration)
+    game.StarterGui:SetCore("SendNotification",{
+		Title = NTitle;
+		Text = NText;
+		Icon = NIcon;
+		Duration = NDuration;
+	})
+ end
+  notify("Kratos V1", "Credits to Funtime#4841 for the clips and bullets thing") 
+
+local localp = game:GetService("Players").LocalPlayer
+local RS = game:GetService("RunService")
+function notify(NTitle, NText, NIcon, NDuration)
+    game.StarterGui:SetCore("SendNotification",{
+		Title = NTitle;
+		Text = NText;
+		Icon = NIcon;
+		Duration = NDuration;
+	})
+ end
+  notify("Kratos V1", "Credits to Funtime#4841 for the clips and bullets thing") 
+local localp = game:GetService("Players").LocalPlayer
+local RS = game:GetService("RunService")
+function notify(NTitle, NText, NIcon, NDuration)
+    game.StarterGui:SetCore("SendNotification",{
+		Title = NTitle;
+		Text = NText;
+		Icon = NIcon;
+		Duration = NDuration;
+	})
+ end
+  notify("Kratos V1", "I didnt made the skybox or gun skin colour") 
